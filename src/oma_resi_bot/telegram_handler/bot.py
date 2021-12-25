@@ -2,15 +2,13 @@
 The basic bot functionality for startup, shutdown and dispatcher/updater handling
 """
 # pylint: disable=global-variable-not-assigned,invalid-name
-import os
 from typing import Tuple
 
 from telegram.ext import Dispatcher, Updater
 
+from oma_resi_bot.models.config import config
 from oma_resi_bot.utils.logger import logger
 from oma_resi_bot.utils.signal_handler import register_termination_callback
-
-TOKEN = os.getenv("TELEGRAM_BOT")
 
 
 def _get_updater_and_dispatcher(telegram_token: str) -> Tuple[Updater, Dispatcher]:
@@ -23,7 +21,7 @@ def _get_updater_and_dispatcher(telegram_token: str) -> Tuple[Updater, Dispatche
     return updater_, updater_.dispatcher
 
 
-updater, dispatcher = _get_updater_and_dispatcher(TOKEN)
+updater, dispatcher = _get_updater_and_dispatcher(config.bot_token)
 
 
 def start():
